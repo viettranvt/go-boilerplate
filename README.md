@@ -1,4 +1,4 @@
-# init_golang
+# go-boilerplate
 
 ## Golang version
 
