@@ -15,3 +15,7 @@
 # vendor/
 
 .env
+
+mongo-data
+mysql-data
+.vscode

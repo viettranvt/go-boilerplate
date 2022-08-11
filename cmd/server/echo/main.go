@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"log"
@@ -8,6 +9,10 @@ import (
 
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 
 	"init_golang/internal/components"
 	"init_golang/internal/config"
@@ -73,15 +78,21 @@ func (s *server) createAndConfigEcho(appContext components.AppContext) (*echo.Ec
 
 func main() {
 	param := parseParam()
-	options := defaultOptions(param.EnvPath)
-	// mySqlDB, err := gorm.Open(mysql.Open(options.MySqlUrl), &gorm.Config{})
+	optionsServer := defaultOptions(param.EnvPath)
+	ctx := context.Background()
+	mongoDB, err := mongo.Connect(ctx, options.Client().ApplyURI(optionsServer.MongoDBUrl))
 
-	// if err != nil {
-	// 	log.Fatalln(err)
-	// }
+	if err != nil {
+		log.Fatalln(err)
+	}
+	mySqlDB, err := gorm.Open(mysql.Open(optionsServer.MySqlUrl), &gorm.Config{})
 
-	appContext := components.NewAppContext(nil)
-	server := &server{options}
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	appContext := components.NewAppContext(mySqlDB, mongoDB)
+	server := &server{optionsServer}
 
 	if err := server.start(appContext); err != nil {
 		log.Fatalf("fail to start, err=%v", err)
