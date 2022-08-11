@@ -15,8 +15,9 @@ import (
 	"gorm.io/gorm"
 
 	"init_golang/internal/components"
-	"init_golang/internal/config"
-	echo_middleware "init_golang/internal/config/echo/middleware"
+	configs "init_golang/internal/configs"
+	echo_middleware "init_golang/internal/configs/echo/middleware"
+	echo_routes "init_golang/internal/routes/echo"
 	options_util "init_golang/internal/utils/options"
 )
 
@@ -34,11 +35,11 @@ func defaultOptions(envFile string) options_util.Options {
 	}
 
 	return options_util.Options{
-		MySqlUrl:     os.Getenv(config.EnvMySqlUrl),
-		MongoDBUrl:   os.Getenv(config.EnvMongoDBUrl),
-		Port:         os.Getenv(config.EnvPort),
-		JwtSecretKey: os.Getenv(config.EnvJwtSecretKey),
-		APIPrefix:    os.Getenv(config.EnvAPIPrefix),
+		MySqlUrl:     os.Getenv(configs.EnvMySqlUrl),
+		MongoDBUrl:   os.Getenv(configs.EnvMongoDBUrl),
+		Port:         os.Getenv(configs.EnvPort),
+		JwtSecretKey: os.Getenv(configs.EnvJwtSecretKey),
+		APIPrefix:    os.Getenv(configs.EnvAPIPrefix),
 	}
 }
 
@@ -57,7 +58,7 @@ func (s *server) start(appContext components.AppContext) error {
 		return err
 	}
 
-	//handlers.RegisterAllHandlers(e, s.ops.APIPrefix)
+	echo_routes.RegisterAllModules(e, appContext, s.options.APIPrefix)
 	address := fmt.Sprintf(":%v", s.options.Port)
 
 	return e.Start(address)
