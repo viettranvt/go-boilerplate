@@ -9,4 +9,5 @@ const (
 	EnvMongoDBUrl   = "MONGO_DB_URL"
 	EnvPort         = "PORT"
 	EnvJwtSecretKey = "JWT_KEY"
+	EnvCorsOrigin   = "CORS_ORIGIN"
 )

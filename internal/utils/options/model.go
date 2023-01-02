@@ -8,4 +8,5 @@ type Options struct {
 
 	// jwtSecretKey for user token generation and validation
 	JwtSecretKey string
+	IsDebug bool
 }

@@ -1,4 +1,4 @@
-version: '3.0'
+version: "3.0"
 
 services:
   mongodb:
@@ -10,15 +10,3 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=mongo_db_1
-
-  mysql:
-    image: mysql:8.0
-    ports:
-      - "3306:3306"
-    volumes:
-      - ./mysql-data:/data/db
-    environment:
-      MYSQL_ROOT_PASSWORD: my_sql_1
-      MYSQL_DATABASE: testdb
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: my_sql_1

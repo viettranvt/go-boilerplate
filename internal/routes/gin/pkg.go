@@ -1,7 +1,7 @@
 package gin_routes
 
 import (
-	"init_golang/internal/components"
+	"parishioner_management/internal/components"
 
 	"github.com/gin-gonic/gin"
 )

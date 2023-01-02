@@ -14,11 +14,11 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
-	"init_golang/internal/components"
-	configs "init_golang/internal/configs"
-	gin_middleware "init_golang/internal/configs/gin/middleware"
-	gin_routes "init_golang/internal/routes/gin"
-	options_util "init_golang/internal/utils/options"
+	"parishioner_management/internal/components"
+	configs "parishioner_management/internal/configs"
+	gin_middleware "parishioner_management/internal/configs/gin/middleware"
+	gin_routes "parishioner_management/internal/routes/gin"
+	options_util "parishioner_management/internal/utils/options"
 )
 
 type ConsoleParam struct {

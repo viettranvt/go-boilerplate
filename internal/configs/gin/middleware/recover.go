@@ -1,13 +1,14 @@
 package gin_middleware
 
 import (
-	"init_golang/internal/common"
-	"init_golang/internal/components"
+	"parishioner_management/internal/common"
+	"parishioner_management/internal/components"
+	options_util "parishioner_management/internal/utils/options"
 
 	"github.com/gin-gonic/gin"
 )
 
-func recoverMiddleware(appContext components.AppContext) gin.HandlerFunc {
+func customRecover(appContext components.AppContext) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		defer func() {
 			if err := recover(); err != nil {
@@ -28,4 +29,8 @@ func recoverMiddleware(appContext components.AppContext) gin.HandlerFunc {
 
 		c.Next()
 	}
+}
+
+func recoverMiddleware(g *gin.Engine, appContext components.AppContext, options options_util.Options) {
+	g.Use(customRecover(appContext))
 }
