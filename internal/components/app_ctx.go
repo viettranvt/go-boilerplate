@@ -2,24 +2,18 @@ package components
 
 import (
 	"go.mongodb.org/mongo-driver/mongo"
-	"gorm.io/gorm"
 )
 
 type AppContext interface {
-	GetMainMySqlDBConnection() *gorm.DB
+	GetMainMongoDBConnection() *mongo.Client
 }
 
 type appCtx struct {
-	MySqlDB *gorm.DB
 	MongoDB *mongo.Client
 }
 
-func NewAppContext(mySqlDB *gorm.DB, mongoDB *mongo.Client) *appCtx {
-	return &appCtx{MySqlDB: mySqlDB, MongoDB: mongoDB}
-}
-
-func (ctx *appCtx) GetMainMySqlDBConnection() *gorm.DB {
-	return ctx.MySqlDB
+func NewAppContext(mongoDB *mongo.Client) *appCtx {
+	return &appCtx{MongoDB: mongoDB}
 }
 
 func (ctx *appCtx) GetMainMongoDBConnection() *mongo.Client {

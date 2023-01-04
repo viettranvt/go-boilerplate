@@ -11,8 +11,6 @@ import (
 	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
 
 	"parishioner_management/internal/components"
 	configs "parishioner_management/internal/configs"
@@ -35,7 +33,6 @@ func defaultOptions(envFile string) options_util.Options {
 	}
 
 	return options_util.Options{
-		MySqlUrl:     os.Getenv(configs.EnvMySqlUrl),
 		MongoDBUrl:   os.Getenv(configs.EnvMongoDBUrl),
 		Port:         os.Getenv(configs.EnvPort),
 		JwtSecretKey: os.Getenv(configs.EnvJwtSecretKey),
@@ -87,13 +84,7 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	mySqlDB, err := gorm.Open(mysql.Open(optionsServer.MySqlUrl), &gorm.Config{})
-
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	appContext := components.NewAppContext(mySqlDB, mongoDB)
+	appContext := components.NewAppContext(mongoDB)
 	server := &server{optionsServer}
 
 	if err := server.start(appContext); err != nil {
