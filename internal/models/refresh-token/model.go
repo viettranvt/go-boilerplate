@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-type RefreshTokenModel struct {
+type Model struct {
 	common.BaseModel `json:",inline" bson:",inline"`
 	AccountID        int       `bson:"account_id" json:"account_id"`
 	Expired          time.Time `bson:"expired" json:"expired"`

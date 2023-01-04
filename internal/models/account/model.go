@@ -2,7 +2,7 @@ package account_model
 
 import "parishioner_management/internal/common"
 
-type AccountModel struct {
+type Model struct {
 	common.BaseModel `json:",inline" bson:",inline"`
 	UserName         string `bson:"user_name" json:"user_name"`
 	FullName         string `bson:"full_name" json:"full_name"`
