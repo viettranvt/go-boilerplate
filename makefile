@@ -8,3 +8,6 @@ docker/up: ## Run docker compose
 
 docker/down: ## Stop docker compose
 	docker-compose down
+
+run/deployment: ##run deployment script
+	go run ./cmd/deployment/main.go

@@ -62,6 +62,7 @@ func (s *server) start(appContext components.AppContext) error {
 }
 
 func (s *server) createAndConfigGin(appContext components.AppContext) (*gin.Engine, error) {
+	// gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()
 
 	// s.configLog(e)
