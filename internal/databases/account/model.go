@@ -1,4 +1,4 @@
-package account_model
+package account_database
 
 import (
 	"parishioner_management/internal/common"

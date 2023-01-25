@@ -14,7 +14,6 @@ import (
 )
 
 func secureMiddleware(g *gin.Engine, appCtx components.AppContext, options options_util.Options) {
-
 	origin := os.Getenv(configs.EnvCorsOrigin)
 
 	g.Use(cors.New(cors.Config{

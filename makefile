@@ -1,7 +1,7 @@
 #!make
 
-run/gin: 
-	go run cmd/server/gin/main.go
+run: 
+	go run cmd/server/main.go
 
 docker/up: ## Run docker compose
 	docker-compose up -d

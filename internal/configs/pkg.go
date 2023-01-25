@@ -9,5 +9,6 @@ const (
 	EnvPort           = "PORT"
 	EnvJwtSecretKey   = "JWT_KEY"
 	EnvCorsOrigin     = "CORS_ORIGIN"
+	EnvMode           = "MODE"
 	DefaultBcryptCost = 10
 )

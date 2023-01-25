@@ -1,4 +1,4 @@
-package parishioner
+package parishioner_database
 
 import (
 	"parishioner_management/internal/common"

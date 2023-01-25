@@ -11,6 +11,7 @@ import (
 	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.mongodb.org/mongo-driver/mongo/readpref"
 
 	"parishioner_management/internal/components"
 	configs "parishioner_management/internal/configs"
@@ -37,6 +38,7 @@ func defaultOptions(envFile string) options_util.Options {
 		Port:         os.Getenv(configs.EnvPort),
 		JwtSecretKey: os.Getenv(configs.EnvJwtSecretKey),
 		APIPrefix:    os.Getenv(configs.EnvAPIPrefix),
+		Mode:         os.Getenv(configs.EnvMode),
 	}
 }
 
@@ -62,9 +64,12 @@ func (s *server) start(appContext components.AppContext) error {
 }
 
 func (s *server) createAndConfigGin(appContext components.AppContext) (*gin.Engine, error) {
-	// gin.SetMode(gin.ReleaseMode)
-	r := gin.Default()
+	if s.options.Mode == "release" {
+		gin.SetMode(gin.ReleaseMode)
+	}
 
+	r := gin.Default()
+	r.SetTrustedProxies(nil)
 	// s.configLog(e)
 	// s.configErrHandler(e)
 
@@ -82,6 +87,11 @@ func main() {
 	mongoDB, err := mongo.Connect(ctx, options.Client().ApplyURI(optionsServer.MongoDBUrl))
 
 	if err != nil {
+		log.Fatalln(err)
+	}
+
+	// test connection of db
+	if err := mongoDB.Ping(ctx, readpref.Primary()); err != nil {
 		log.Fatalln(err)
 	}
 

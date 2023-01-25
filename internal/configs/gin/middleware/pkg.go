@@ -12,6 +12,7 @@ func RegisterMiddleware(g *gin.Engine, appContext components.AppContext, options
 	recoverMiddleware(g, appContext, options)
 	loggerMiddleware(g, appContext, options)
 	secureMiddleware(g, appContext, options)
+	tokenMiddleware(g, appContext, options)
 
 	return nil
 }

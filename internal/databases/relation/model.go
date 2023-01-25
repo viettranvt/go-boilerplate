@@ -1,4 +1,4 @@
-package relationship
+package relationship_database
 
 import (
 	"parishioner_management/internal/common"

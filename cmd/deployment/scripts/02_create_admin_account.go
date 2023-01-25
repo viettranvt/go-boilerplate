@@ -8,7 +8,7 @@ import (
 	database_field_const "parishioner_management/internal/constant/database/field"
 	database_model_const "parishioner_management/internal/constant/database/model"
 	mongo_field_const "parishioner_management/internal/constant/mongo/field"
-	account_model "parishioner_management/internal/models/account"
+	account_database "parishioner_management/internal/databases/account"
 	database_util "parishioner_management/internal/utils/database"
 	hash_util "parishioner_management/internal/utils/hash"
 	phone_util "parishioner_management/internal/utils/phone"
@@ -44,7 +44,7 @@ func CreateAdminAccount() {
 
 	accountCollection := database_util.GetCollection(mongoDBClient, database_model_const.Account)
 	filter := bson.M{database_field_const.Username: "admin"}
-	var data account_model.Model
+	var data account_database.Model
 
 	if err := accountCollection.FindOne(ctx, filter).Decode(&data); err != nil {
 		if err == mongo.ErrNoDocuments {
@@ -55,7 +55,7 @@ func CreateAdminAccount() {
 				log.Fatalln(err)
 			}
 
-			model := &account_model.Model{
+			model := &account_database.Model{
 				UserName: "admin",
 				FullName: "admin",
 				Phone:    phone_util.RemovePrefix("0328839669"),

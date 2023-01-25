@@ -9,7 +9,7 @@ import (
 // this function will get collection from client of mongo db
 func GetCollection(client *mongo.Client, collectionName string) *mongo.Collection {
 	database := client.Database(database_model_const.DatabaseName)
-	accountCollection := database.Collection(database_model_const.Account)
+	accountCollection := database.Collection(collectionName)
 
 	if accountCollection == nil {
 		panic("get collection failed")
