@@ -17,3 +17,8 @@ func GetCollection(client *mongo.Client, collectionName string) *mongo.Collectio
 
 	return accountCollection
 }
+
+// this func will calculate the item need to skip
+func CalculateSkipItem(page int, limit int) int64 {
+	return (int64(page-1) * int64(limit))
+}

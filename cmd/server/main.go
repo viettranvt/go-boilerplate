@@ -92,7 +92,7 @@ func main() {
 
 	// test connection of db
 	if err := mongoDB.Ping(ctx, readpref.Primary()); err != nil {
-		log.Fatalln(err)
+		log.Fatalln("database connection failed", err)
 	}
 
 	appContext := components.NewAppContext(mongoDB)
