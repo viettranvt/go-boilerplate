@@ -1,9 +1,14 @@
 package parishioner_model
 
 import (
+	"errors"
 	"time"
 
 	validation "github.com/go-ozzo/ozzo-validation"
+)
+
+var (
+	ErrInvalidId = errors.New("invalid id")
 )
 
 type ParishionerCreation struct {

@@ -7,7 +7,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-type UpdateStorage interface {
+type DeleteStorage interface {
 	UpdateParishioner(
 		ctx context.Context,
 		id primitive.ObjectID,
@@ -22,10 +22,10 @@ type UpdateStorage interface {
 	) (*parishioner_database.Model, error)
 }
 
-type updateBusiness struct {
+type deleteBusiness struct {
 	store UpdateStorage
 }
 
-func NewUpdateBusiness(store UpdateStorage) *updateBusiness {
-	return &updateBusiness{store: store}
+func NewDeleteBusiness(store DeleteStorage) *deleteBusiness {
+	return &deleteBusiness{store: store}
 }

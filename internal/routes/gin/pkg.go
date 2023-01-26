@@ -19,6 +19,7 @@ const (
 	authRefreshSuffix = "refresh"
 	listSuffix        = "list"
 	newSuffix         = "new"
+	deleteSuffix      = "delete"
 )
 
 func RegisterAllModules(g *gin.Engine, appContext components.AppContext, apiPrefix string) {
@@ -43,6 +44,9 @@ func RegisterAllModules(g *gin.Engine, appContext components.AppContext, apiPref
 
 			// POST /api/parishioners/new
 			parishioner.POST(newSuffix, parishioner_transport.Create(db))
+
+			// DELETE /api/parishioners/delete
+			parishioner.DELETE(deleteSuffix, parishioner_transport.Delete(db))
 		}
 	}
 }

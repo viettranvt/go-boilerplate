@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"net/http"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -13,6 +14,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 
+	"parishioner_management/internal/common"
 	"parishioner_management/internal/components"
 	configs "parishioner_management/internal/configs"
 	gin_middleware "parishioner_management/internal/configs/gin/middleware"
@@ -72,6 +74,11 @@ func (s *server) createAndConfigGin(appContext components.AppContext) (*gin.Engi
 	r.SetTrustedProxies(nil)
 	// s.configLog(e)
 	// s.configErrHandler(e)
+
+	// setup response when routing not found
+	r.NoRoute(func(c *gin.Context) {
+		c.JSON(404, common.NewFullErrorResponse(http.StatusNotFound, nil, "page not found", "page not found", "PAGE_NOT_FOUND"))
+	})
 
 	if err := gin_middleware.RegisterMiddleware(r, appContext, s.options); err != nil {
 		return nil, err
